@@ -75,6 +75,7 @@ apt-get install nginx -y
 rm -rf /etc/nginx/sites-enabled/default
 rm -rf /etc/nginx/sites-available/default
 cat <<EOT> /etc/nginx/sites-available/sonarqube
+
 server{
     listen      80;
     server_name sonarqube.groophy.in;
