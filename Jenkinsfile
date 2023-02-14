@@ -8,7 +8,12 @@ pipeline {
     }
     
     stages{
-        
+
+        stage("example"){
+            steps{
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            }
+        }        
         stage("Fetching"){
             steps{
                 echo "Fetching the code"
