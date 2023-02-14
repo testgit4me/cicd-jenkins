@@ -27,12 +27,7 @@ pipeline {
                 sh "mvn test"
             }
         }
-        stage("Githook working"){
-            steps{
-                echo "Tesing githook"
-                sh "mvn test"
-            }
-        }
+       
     }
 
 }
