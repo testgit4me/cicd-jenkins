@@ -6,7 +6,7 @@ plugin Zentimestamp
 jenkins
 nexus
 sonarqube
-SG
+
 plugins (nexus,sonarqb, git, pipeline maven integration, buildtimestamp, pipeline utility steps)
 
 jenkins + sonarqb
@@ -16,5 +16,7 @@ jenkins + nexus
 
 pipeline
 set notofication
+
+jenkins & nexus conf-volumes attach to external location
 
 
