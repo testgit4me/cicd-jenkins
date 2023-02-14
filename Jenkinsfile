@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-Pipeline{
+pipeline {
     agent any
     
     tools{
