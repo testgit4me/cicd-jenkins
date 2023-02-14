@@ -2,7 +2,7 @@
 
 Pipeline{
     agent any
-
+    maven "Maven"
     stages{
         
         stage("Fetching"){
