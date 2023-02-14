@@ -27,7 +27,12 @@ pipeline {
                 sh "mvn test"
             }
         }
-
+        stage("Githook"){
+            steps{
+                echo "Tesing githook"
+                sh "mvn test"
+            }
+        }
     }
 
 }
