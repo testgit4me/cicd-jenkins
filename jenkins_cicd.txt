@@ -1,0 +1,20 @@
+mkdir -p versions
+cp target/hello-1.0.war versions/hello-V$BUILD_ID.war
+plugin Zentimestamp
+
+-------------------
+jenkins
+nexus
+sonarqube
+SG
+plugins (nexus,sonarqb, git, pipeline maven integration, buildtimestamp, pipeline utility steps)
+
+jenkins + sonarqb
+Global tool conf-n -> configure system -> nexus token: 38b52ab057201007be291c27d479e0a5adbd3184
+
+jenkins + nexus
+
+pipeline
+set notofication
+
+
