@@ -6,7 +6,7 @@ pipeline {
      environment {
         
         registryCredential = 'ecr:us-east-2:awscreds'
-        appRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com/jenkinscicd"  
+        appRegistry = "public.ecr.aws/o5j9v9p7/devops"  
 
      }
 
@@ -53,7 +53,7 @@ pipeline {
         stage('Upload App Image') {
           steps{
             script {
-                docker.withRegistry(753743851231.dkr.ecr.us-east-2.amazonaws.com, registryCredential) {
+                docker.withRegistry("public.ecr.aws/o5j9v9p7", registryCredential) {
                         
                         dockerImage.push("$BUILD_NUMBER")
                         dockerImage.push('latest')  
