@@ -57,7 +57,7 @@ pipeline {
         stage('Upload App Image') {
           steps{
             script {
-                docker.withRegistry(vprofileRegistry, registryCredential) {
+                docker.withRegistry('', 'dockerHub-login') {
                         def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")  
                         dockerImage.push("$BUILD_NUMBER")
                         dockerImage.push('latest')  
