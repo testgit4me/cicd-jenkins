@@ -46,21 +46,12 @@ pipeline {
         stage("Build docker image"){
             steps{
                 script {
-                    def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")                    
-                }
-            }
-        }
-        
-        stage('Upload App Image') {
-            steps{
-                script {
-
+                    def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")    
                     dockerImage.push("$BUILD_NUMBER")
-                    dockerImage.push('latest')
-                    
+                    dockerImage.push('latest')                
                 }
             }
-        }  
+        } 
 
     }  
 }
