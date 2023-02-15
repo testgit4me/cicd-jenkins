@@ -7,7 +7,8 @@ pipeline {
         registryCredential = 'ecr:us-east-2:awscreds'
         appRegistry = "951401132355.dkr.ecr.us-east-2.amazonaws.com/vprofileappimg"
         vprofileRegistry = "https://951401132355.dkr.ecr.us-east-2.amazonaws.com"
-    
+     }
+
     tools{
         maven "Maven"
     }
@@ -48,4 +49,5 @@ pipeline {
         //     }
         // }
     }
+  
 }
