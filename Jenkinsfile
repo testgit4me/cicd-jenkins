@@ -14,11 +14,12 @@ pipeline {
     
     stages{
      
-        stage("fake comment")
-            steps{
+        stage("fake comment"){
+             steps{
                 sh "blablabla"
-            }
-
+            }    
+        }
+           
         stage("Fetching"){
             steps{
                 echo "Fetching the code"
