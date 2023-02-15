@@ -14,11 +14,11 @@ pipeline {
     
     stages{
      
-        // stage("fake comment"){
-        //      steps{
-        //         sh "blablabla"
-        //     }    
-        // }
+        stage("fake comment"){
+             steps{
+                sh "blablabla"
+            }    
+        }
            
         stage("Fetching"){
             steps{
