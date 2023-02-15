@@ -21,9 +21,9 @@ pipeline {
                 sh "mvn install"
             }
         }
-        stage("Tesing"){
+        stage("Tesing stage"){
             steps{
-                echo "Tesing the jar & GIT file"
+                echo "Tesing the jar & GIT file2"
                 sh "mvn test"
             }
         }
