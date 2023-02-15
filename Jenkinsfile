@@ -5,8 +5,8 @@ pipeline {
 
      environment {
         
-        registryCredential = 'ecr:us-east-2:awscreds'
-        appRegistry = "public.ecr.aws/o5j9v9p7/devops"  
+        registryCredential = 'dockerHub-login'
+        appRegistry = "projectvprofile/dockercicd"  
 
      }
 
@@ -31,7 +31,6 @@ pipeline {
         stage("Tesing"){
             steps{
                 echo "Tesing the jar & GIT file2"
-                echo "Tesing the jar & GIT file2"
                 sh "mvn test"
             }
         }
@@ -53,7 +52,7 @@ pipeline {
         stage('Upload App Image') {
           steps{
             script {
-                docker.withRegistry("public.ecr.aws/o5j9v9p7", registryCredential) {
+                docker.withRegistry('', registryCredential) {
                         
                         dockerImage.push("$BUILD_NUMBER")
                         dockerImage.push('latest')  
