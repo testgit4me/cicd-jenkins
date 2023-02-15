@@ -41,13 +41,13 @@ pipeline {
             }
         }
 
-        // stage("Build docker image"){
-        //     steps{
-        //         script {
-        //             dockerImage = docker.build("appRegistry:$BUILD_NUMBER", "./")
-        //         }
-        //     }
-        // }
+        stage("Build docker image"){
+            steps{
+                script {
+                    dockerImage = docker.build("appRegistry:$BUILD_NUMBER", "./")
+                }
+            }
+        }
     }
   
 }
