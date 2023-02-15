@@ -53,27 +53,27 @@ pipeline {
         //     }
         // }
 
-        stage("Uploading artifact"){
-            steps{
+        // stage("Uploading artifact"){
+        //     steps{
 
-                echo "Uploading jar file to Nexus repository"
+        //         echo "Uploading jar file to Nexus repository"
 
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '172.31.9.99:8081',
-                    groupId: '',
-                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                    repository: 'app-pipeline',
-                    credentialsId: 'nexusLogin',
-                    artifacts: [
-                        [artifactId: boxfuse,
-                        classifier: '',
-                        file: 'target/hello-1.0.war',
-                        type: 'war']
-                        ]
-                )
-            }
-        }       
+        //         nexusArtifactUploader(
+        //             nexusVersion: 'nexus3',
+        //             protocol: 'http',
+        //             nexusUrl: '172.31.9.99:8081',
+        //             groupId: '',
+        //             version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+        //             repository: 'app-pipeline',
+        //             credentialsId: 'nexusLogin',
+        //             artifacts: [
+        //                 [artifactId: boxfuse,
+        //                 classifier: '',
+        //                 file: 'target/hello-1.0.war',
+        //                 type: 'war']
+        //                 ]
+        //         )
+        //     }
+        // }       
     }    
 }
