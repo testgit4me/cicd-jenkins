@@ -5,7 +5,7 @@ pipeline {
 
      environment {
         registryCredential = 'ecr:us-east-2:awscreds'
-        appRegistry = "public.ecr.aws/o5j9v9p7/devops"        
+        appRegistry = "projectvprofile/dockercicd"        
         vprofileRegistry = "public.ecr.aws/o5j9v9p7"
         // appRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com/jenkinscicd"        
         // vprofileRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com"
@@ -54,7 +54,7 @@ pipeline {
         stage('Upload App Image') {
           steps{
             script {
-              docker.withRegistry(vprofileRegistry, registryCredential) {
+              docker.withRegistry('projectvprofile', 'dockerHub-login') {
 
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
