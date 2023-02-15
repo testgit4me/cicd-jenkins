@@ -49,7 +49,7 @@ pipeline {
         stage("Build docker image"){
             steps{
                 script {                     
-                    def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")   
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")   
                 }
             }
         } 
