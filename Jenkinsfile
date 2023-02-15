@@ -45,10 +45,14 @@ pipeline {
 
         stage("Build docker image"){
             steps{
-                script {
-                    def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")    
-                    dockerImage.push("$BUILD_NUMBER")
-                    dockerImage.push('latest')                
+                script {                     
+                    docker.withRegistry('https://hub.docker.com', 'dockerHub-login') {
+
+                        def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")    
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')  
+                        
+                    }             
                 }
             }
         } 
