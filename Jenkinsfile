@@ -54,12 +54,10 @@ pipeline {
         stage('Upload App Image') {
             steps{
                 script {
-                    docker.withRegistry('https://hub.docker.com') {
 
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push('latest')
-                        
-                    }
+                    dockerImage.push("$BUILD_NUMBER")
+                    dockerImage.push('latest')
+                    
                 }
             }
         }  
