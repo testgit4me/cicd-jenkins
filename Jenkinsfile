@@ -17,7 +17,7 @@ pipeline {
         stage("Fetching"){
             steps{
                 echo "Fetching the code"
-                git branch: "main", url: "https://github.com/testgit4me/cicd-jenkins.git"
+                git branch: "cicd-docker", url: "https://github.com/testgit4me/cicd-jenkins.git"
             }
         }
         stage("Building"){
