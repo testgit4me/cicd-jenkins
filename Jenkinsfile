@@ -44,7 +44,8 @@ pipeline {
         stage("Build docker image"){
             steps{
                 script {
-                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")
+                    // dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")
+                    dockerImage = docker.build( "vprofileappimg" + ":$BUILD_NUMBER", ".")
                 }
             }
         }
