@@ -1,12 +1,12 @@
 #!/usr/bin/env groovy
 
-def COLOR_MAP = [
-    'SUCCESS': 'good', 
-    'FAILURE': 'danger',
-]
-
 pipeline {
     agent any
+
+     environment {
+        registryCredential = 'ecr:us-east-2:awscreds'
+        appRegistry = "951401132355.dkr.ecr.us-east-2.amazonaws.com/vprofileappimg"
+        vprofileRegistry = "https://951401132355.dkr.ecr.us-east-2.amazonaws.com"
     
     tools{
         maven "Maven"
@@ -37,6 +37,14 @@ pipeline {
         stage('MVN Checkstyle'){
             steps {
                 sh 'mvn checkstyle:checkstyle'
+            }
+        }
+
+        stage("Build docker image"){
+            steps{
+                script {
+                    dockerImage = docker.build("appRegistry:$BUILD_NUMBER", "./")
+                }
             }
         }
     }
