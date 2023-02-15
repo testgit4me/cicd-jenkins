@@ -35,25 +35,45 @@ pipeline {
             }
         }
 
-        stage('Sonar Analysis') {
-            environment {
-                scannerHome = tool 'sonar4.7'
-            }
-            steps {
-               withSonarQubeEnv('sonar') {
-                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-                   -Dsonar.projectName=vprofile \
-                   -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/ \
-                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-              }
-            }
-        }
+        // stage('Sonar Analysis') {
+        //     environment {
+        //         scannerHome = tool 'sonar4.7'
+        //     }
+        //     steps {
+        //        withSonarQubeEnv('sonar') {
+        //            sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
+        //            -Dsonar.projectName=vprofile \
+        //            -Dsonar.projectVersion=1.0 \
+        //            -Dsonar.sources=src/ \
+        //            -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+        //            -Dsonar.junit.reportsPath=target/surefire-reports/ \
+        //            -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+        //            -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+        //       }
+        //     }
+        // }
 
-       
-    }
-    
+        stage("Uploading artifact"){
+            steps{
+
+                echo "Uploading jar file to Nexus repository"
+
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '3.145.157.212:8081',
+                    groupId: 'QA',
+                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                    repository: 'app-pipeline',
+                    credentialsId: 'nexusLogin',
+                    artifacts: [
+                        [artifactId: boxfuse,
+                        classifier: '',
+                        file: 'target/hello-1.0.war',
+                        type: 'war']
+                        ]
+                )
+            }
+        }       
+    }    
 }
