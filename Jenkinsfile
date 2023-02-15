@@ -4,9 +4,12 @@ pipeline {
     agent any
 
      environment {
-        registryCredential = 'ecr:us-east-2:awscreds'
-        appRegistry = "projectvprofile/dockercicd"        
-        vprofileRegistry = "public.ecr.aws/o5j9v9p7"
+        
+        registryCredential = 'dockerHub-login'
+        appRegistry = "projectvprofile/dockercicd" 
+        vprofileRegistry = ''     
+
+        // registryCredential = 'ecr:us-east-2:awscreds'
         // appRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com/jenkinscicd"        
         // vprofileRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com"
      }
@@ -46,16 +49,23 @@ pipeline {
         stage("Build docker image"){
             steps{
                 script {                     
-                    docker.withRegistry('','dockerHub-login') {
-
-                        def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")    
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push('latest')  
-                        
-                    }             
+                    def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")   
                 }
             }
         } 
+
+        stage('Upload App Image') {
+          steps{
+            script {
+                docker.withRegistry(vprofileRegistry, registryCredential) {
+                         
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')  
+                        
+                    }                   
+            }
+          }
+     }
 
     }  
 }
