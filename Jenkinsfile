@@ -5,8 +5,8 @@ pipeline {
 
      environment {
         registryCredential = 'ecr:us-east-2:awscreds'
-        appRegistry = "951401132355.dkr.ecr.us-east-2.amazonaws.com/vprofileappimg"
-        vprofileRegistry = "https://951401132355.dkr.ecr.us-east-2.amazonaws.com"
+        appRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com/jenkinscicd"        
+        vprofileRegistry = "753743851231.dkr.ecr.us-east-2.amazonaws.com"
      }
 
     tools{
@@ -44,11 +44,20 @@ pipeline {
         stage("Build docker image"){
             steps{
                 script {
-                    // dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")
-                    dockerImage = docker.build( "vprofileappimg" + ":$BUILD_NUMBER", ".")
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")                    
                 }
             }
         }
-    }
-  
+        
+        stage('Upload App Image') {
+          steps{
+            script {
+              docker.withRegistry( vprofileRegistry, registryCredential ) {
+                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('latest')
+              }
+            }
+          }
+        }             
+    }  
 }
