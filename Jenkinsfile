@@ -21,11 +21,17 @@ pipeline {
                 sh "mvn install"
             }
         }
-        stage("Tesing stage"){
+        stage("Tesing"){
             steps{
                 echo "Tesing the jar & GIT file2"
                 echo "Tesing the jar & GIT file2"
                 sh "mvn test"
+            }
+        }
+        
+        stage('Checkstyle Analysis'){
+            steps {
+                sh 'mvn checkstyle:checkstyle'
             }
         }
 
