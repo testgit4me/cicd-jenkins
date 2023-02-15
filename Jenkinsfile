@@ -23,10 +23,11 @@ pipeline {
         }
         stage("Tesing"){
             steps{
-                echo "Tesing the jar file"
+                echo "Tesing the jar & GIT file"
                 sh "mvn test"
             }
         }
+
        
     }
     
