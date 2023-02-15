@@ -46,19 +46,19 @@ pipeline {
             }
         }
 
-        stage("Build docker image"){
-            steps{
-                script {                     
-                    def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")   
-                }
-            }
-        } 
+        // stage("Build docker image"){
+        //     steps{
+        //         script {                     
+        //             def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")   
+        //         }
+        //     }
+        // } 
 
         stage('Upload App Image') {
           steps{
             script {
                 docker.withRegistry(vprofileRegistry, registryCredential) {
-                         
+                        def dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")  
                         dockerImage.push("$BUILD_NUMBER")
                         dockerImage.push('latest')  
                         
