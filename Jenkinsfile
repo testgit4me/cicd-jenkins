@@ -1,13 +1,15 @@
 #!/usr/bin/env groovy
 
-def COLOR_MAP = [
-    'SUCCESS': 'good', 
-    'FAILURE': 'danger',
-]
-
 pipeline {
     agent any
-    
+
+     environment {
+        
+        registryCredential = 'dockerHub-login'
+        appRegistry = "projectvprofile/dockercicd"  
+
+     }
+
     tools{
         maven "Maven"
     }
@@ -17,7 +19,7 @@ pipeline {
         stage("Fetching"){
             steps{
                 echo "Fetching the code"
-                git branch: "main", url: "https://github.com/testgit4me/cicd-jenkins.git"
+                git branch: "cicd-docker", url: "https://github.com/testgit4me/cicd-jenkins.git"
             }
         }
         stage("Building"){
@@ -29,7 +31,6 @@ pipeline {
         stage("Tesing"){
             steps{
                 echo "Tesing the jar & GIT file2"
-                echo "Tesing the jar & GIT file2"
                 sh "mvn test"
             }
         }
@@ -39,5 +40,27 @@ pipeline {
                 sh 'mvn checkstyle:checkstyle'
             }
         }
-    }
+
+        stage("Build docker image"){
+            steps{
+                script {                     
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", ".")   
+                }
+            }
+        } 
+
+        stage('Upload App Image') {
+          steps{
+            script {
+                docker.withRegistry('', registryCredential) {
+                        
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')  
+                        
+                    }                   
+            }
+          }
+     }
+
+    }  
 }
